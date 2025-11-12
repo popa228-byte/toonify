@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/ScrapeGraphAI/toonify/compare/v1.2.0...v1.3.0) (2025-11-12)
+
+
+### Features
+
+* achieve full feature parity with TypeScript TOON library ([58e375d](https://github.com/ScrapeGraphAI/toonify/commit/58e375dab005f5a3e6cdbebe3ec36e03245cae19))
+
 ## [1.2.0](https://github.com/ScrapeGraphAI/toonify/compare/v1.1.1...v1.2.0) (2025-11-12)
 
 
