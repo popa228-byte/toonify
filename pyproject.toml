@@ -47,6 +47,13 @@ toon = "toon.cli:main"
 [tool.hatch.build.targets.wheel]
 packages = ["toon"]
 
+[tool.hatch.build.targets.sdist]
+include = [
+    "toon/",
+    "README.md",
+    "LICENSE",
+]
+
 [tool.uv]
 dev-dependencies = [
     "pytest>=7.0.0",
