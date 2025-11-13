@@ -40,6 +40,11 @@ pip install toonify
 pip install toonify[dev]
 ```
 
+Pydantic 지원:
+```bash
+pip install toonify[pydantic]
+```
+
 ## 빠른 시작
 
 ### Python API
@@ -82,6 +87,48 @@ cat data.json | toon -e > data.toon
 # 토큰 통계 표시
 toon data.json --stats
 ```
+
+### Pydantic 통합
+
+TOON은 Pydantic 모델에서 직접 변환을 지원합니다:
+
+```python
+from pydantic import BaseModel
+from toon import encode_pydantic, decode_to_pydantic
+
+# Pydantic 모델 정의
+class User(BaseModel):
+    id: int
+    name: str
+    email: str
+
+# Pydantic 모델을 TOON으로 인코딩
+users = [
+    User(id=1, name='Alice', email='alice@example.com'),
+    User(id=2, name='Bob', email='bob@example.com')
+]
+
+toon = encode_pydantic(users)
+print(toon)
+# 출력:
+# [2]{id,name,email}:
+#   1,Alice,alice@example.com
+#   2,Bob,bob@example.com
+
+# TOON을 다시 Pydantic 모델로 디코딩
+decoded_users = decode_to_pydantic(toon, User)
+assert all(isinstance(u, User) for u in decoded_users)
+```
+
+**기능:**
+- ✅ Pydantic 모델에서 직접 변환 (v1 및 v2)
+- ✅ 중첩된 모델 지원
+- ✅ 설정되지 않은 값, None 또는 기본값 제외
+- ✅ 필드 별칭 지원
+- ✅ 디코딩 시 전체 검증
+- ✅ 왕복 변환
+
+자세한 예제는 [examples/pydantic_usage.py](../examples/pydantic_usage.py)를 참조하세요.
 
 ## TOON 형식 사양
 
@@ -182,6 +229,57 @@ data = decode(toon_string, {
     'expand_paths': 'safe',
     'strict': False
 })
+```
+
+### `encode_pydantic(model, options=None, exclude_unset=False, exclude_none=False, exclude_defaults=False, by_alias=False)`
+
+Pydantic 모델을 TOON 문자열로 변환합니다.
+
+**매개변수:**
+- `model`: Pydantic 모델 인스턴스 또는 모델 인스턴스 리스트
+- `options`: `encode()` 함수와 동일
+- `exclude_unset`: True인 경우 명시적으로 설정되지 않은 필드 제외
+- `exclude_none`: True인 경우 None 값을 가진 필드 제외
+- `exclude_defaults`: True인 경우 기본값을 가진 필드 제외
+- `by_alias`: True인 경우 필드 이름 대신 필드 별칭 사용
+
+**예제:**
+```python
+from pydantic import BaseModel
+from toon import encode_pydantic
+
+class User(BaseModel):
+    id: int
+    name: str
+    email: str | None = None
+
+user = User(id=1, name='Alice')
+toon = encode_pydantic(user, exclude_none=True)
+```
+
+### `decode_to_pydantic(toon_string, model_class, options=None)`
+
+TOON 문자열을 Pydantic 모델로 디코딩합니다.
+
+**매개변수:**
+- `toon_string`: TOON 형식 문자열
+- `model_class`: 인스턴스화할 Pydantic 모델 클래스
+- `options`: `decode()` 함수와 동일
+
+**반환값:**
+- Pydantic 모델 인스턴스 또는 인스턴스 리스트 (입력에 따라 다름)
+
+**예제:**
+```python
+from pydantic import BaseModel
+from toon import decode_to_pydantic
+
+class User(BaseModel):
+    id: int
+    name: str
+
+toon = "id: 1\nname: Alice"
+user = decode_to_pydantic(toon, User)
 ```
 
 ## CLI 사용법
