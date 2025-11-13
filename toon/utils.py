@@ -158,33 +158,47 @@ def is_array_of_objects(value: Any) -> bool:
 
 def is_uniform_array_of_objects(value: list) -> Optional[list]:
     """
-    Check if an array contains objects with identical primitive fields.
+    Check if an array contains objects with identical primitive-only fields.
+    
+    This function determines if an array of objects can use the compact tabular format.
+    Tabular format is only used when ALL fields in ALL objects are primitive types.
+    If any object contains non-primitive fields (arrays, nested objects), the function
+    returns None, and the encoder will use list array format instead to preserve all data.
     
     Args:
         value: Array to check
         
     Returns:
-        List of field names if uniform, None otherwise
+        List of field names if uniform and all primitive, None otherwise
     """
     if not value or not all(isinstance(item, dict) for item in value):
         return None
     
-    # Get fields from first object
+    # Get all fields from first object and check if they're primitive
     first_obj = value[0]
     fields = []
     
     for key, val in first_obj.items():
-        if is_primitive(val):
-            fields.append(key)
+        if not is_primitive(val):
+            # Object contains non-primitive field (array or nested object)
+            # Cannot use tabular format - must use list format to preserve all data
+            return None
+        fields.append(key)
     
     if not fields:
         return None
     
-    # Check all objects have the same primitive fields
+    # Check all objects have the exact same fields, all primitive
     for obj in value[1:]:
-        obj_fields = [k for k, v in obj.items() if is_primitive(v)]
-        if set(obj_fields) != set(fields):
+        # Check that this object has exactly the same fields
+        if set(obj.keys()) != set(fields):
             return None
+        
+        # Check that all values in this object are primitive
+        for key, val in obj.items():
+            if not is_primitive(val):
+                # Found non-primitive field - cannot use tabular format
+                return None
     
     return fields
 
