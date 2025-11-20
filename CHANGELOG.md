@@ -1,3 +1,15 @@
+## [1.5.0](https://github.com/ScrapeGraphAI/toonify/compare/v1.4.0...v1.5.0) (2025-11-20)
+
+
+### Features
+
+* trigger semantic release ([919fa4c](https://github.com/ScrapeGraphAI/toonify/commit/919fa4cda0e9a8b84eace559c3a12a18497fa766))
+
+
+### Bug Fixes
+
+* Preserve nested arrays and objects in tabular format (Issue [#6](https://github.com/ScrapeGraphAI/toonify/issues/6)) ([38eacc0](https://github.com/ScrapeGraphAI/toonify/commit/38eacc0e164414e24892067e52d7367b2342872d))
+
 ## [1.4.0](https://github.com/ScrapeGraphAI/toonify/compare/v1.3.0...v1.4.0) (2025-11-13)
 
 
