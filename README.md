@@ -130,6 +130,79 @@ assert all(isinstance(u, User) for u in decoded_users)
 
 See [examples/pydantic_usage.py](examples/pydantic_usage.py) for more examples.
 
+### Response Structure Templates for LLM Prompts
+
+TOON provides a powerful feature to generate response structure templates that can be included in LLM prompts. This tells the model exactly what format to return data in, without needing to provide examples with actual data.
+
+```python
+from toon import generate_structure
+
+# Define the expected response structure
+schema = {
+    "name": "name of the person",
+    "age": "age of the person",
+    "occupation": "job description of the person"
+}
+
+# Generate the structure template
+structure = generate_structure(schema)
+print(structure)
+# Output:
+# name: <name of the person>
+# age: <age of the person>
+# occupation: <job description of the person>
+
+# Use in your LLM prompt
+prompt = f"""Extract person information from the text and return it in this format:
+{structure}
+
+Text: [your text here...]"""
+```
+
+**For arrays and complex structures:**
+
+```python
+schema = {
+    "products": [{
+        "name": "product name",
+        "price": "price in USD",
+        "rating": "rating from 1-5"
+    }]
+}
+
+structure = generate_structure(schema)
+print(structure)
+# Output:
+# products[N]{name,price,rating}:
+#   <product name>,<price in USD>,<rating from 1-5>
+#   ...
+```
+
+**With Pydantic models:**
+
+```python
+from pydantic import BaseModel, Field
+from toon import generate_structure_from_pydantic
+
+class Product(BaseModel):
+    name: str = Field(description="product name")
+    price: float = Field(description="price in USD")
+    in_stock: bool = Field(description="availability status")
+
+# Generate structure from model
+structure = generate_structure_from_pydantic(Product)
+# Use in LLM prompts without providing examples
+```
+
+**Benefits:**
+- ✅ No need to include example data in prompts (saves tokens)
+- ✅ Clear, unambiguous format specification
+- ✅ Works with nested objects and arrays
+- ✅ Supports custom delimiters
+- ✅ Type-safe with Pydantic models
+
+See [examples/structure_template_usage.py](examples/structure_template_usage.py) for comprehensive examples.
+
 ## TOON Format Specification
 
 ### Basic Syntax
@@ -280,6 +353,73 @@ class User(BaseModel):
 
 toon = "id: 1\nname: Alice"
 user = decode_to_pydantic(toon, User)
+```
+
+### `generate_structure(schema, options=None)`
+
+Generate a TOON structure template from a schema definition for use in LLM prompts.
+
+**Parameters:**
+- `schema`: Schema definition as dict or list
+  - Simple fields: `{"field_name": "description"}`
+  - Nested objects: `{"field": {"nested": "description"}}`
+  - Arrays: `{"field": [{"item_field": "description"}]}`
+- `options`: Optional dict with:
+  - `delimiter`: `'comma'` (default), `'tab'`, or `'pipe'`
+  - `indent`: Number of spaces per level (default: 2)
+
+**Returns:**
+- TOON formatted structure template string
+
+**Example:**
+```python
+from toon import generate_structure
+
+schema = {
+    "name": "name of the person",
+    "age": "age of the person",
+    "occupation": "job description"
+}
+
+structure = generate_structure(schema)
+print(structure)
+# Output:
+# name: <name of the person>
+# age: <age of the person>
+# occupation: <job description>
+
+# Use in LLM prompt:
+prompt = f"Extract person info in this format:\n{structure}"
+```
+
+### `generate_structure_from_pydantic(model_class, options=None, include_descriptions=True)`
+
+Generate a TOON structure template from a Pydantic model for use in LLM prompts.
+
+**Parameters:**
+- `model_class`: Pydantic model class (BaseModel subclass)
+- `options`: Same as `generate_structure()`
+- `include_descriptions`: If True, use field descriptions from model
+
+**Returns:**
+- TOON formatted structure template string
+
+**Example:**
+```python
+from pydantic import BaseModel, Field
+from toon import generate_structure_from_pydantic
+
+class User(BaseModel):
+    id: int = Field(description="user identifier")
+    name: str = Field(description="full name")
+    email: str = Field(description="email address")
+
+structure = generate_structure_from_pydantic(User)
+print(structure)
+# Output:
+# id: <user identifier>
+# name: <full name>
+# email: <email address>
 ```
 
 ## CLI Usage
