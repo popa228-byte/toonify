@@ -3,8 +3,8 @@ name: Code Quality Checks
 on:
   push:
     paths:
-      - 'scrapegraphai/**'
-      - '.github/workflows/pylint.yml'
+      - 'toon/**'
+      - '.github/workflows/code-quality.yml'
 
 jobs:
   quality:
@@ -19,13 +19,13 @@ jobs:
         run: uv sync --frozen
 
       - name: Run Ruff
-        run: uv run ruff check scrapegraphai
+        run: uv run ruff check toon
 
       - name: Run Black
-        run: uv run black --check scrapegraphai
+        run: uv run black --check toon
 
       - name: Run isort
-        run: uv run isort --check-only scrapegraphai
+        run: uv run isort --check-only toon
 
       - name: Analysing the code with pylint
         run: uv run poe pylint-ci
